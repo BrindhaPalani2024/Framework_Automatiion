@@ -1,0 +1,45 @@
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.edge.EdgeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+public class Checkbrowser {
+
+	public static void main(String[] args) throws InterruptedException 
+	{
+		//Invoking the Browser
+		// setting the browser path manually
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Brindha\\Documents\\chromedriver.exe");
+		//System.setProperty("webdriver.edge.driver", "C:\\Users\\Brindha\\Documents\\msedgedriver.exe");
+		
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+       
+        
+        Thread.sleep(2000);
+        driver.manage().window().maximize();
+        System.out.println(driver.getTitle());
+        System.out.println(driver.getCurrentUrl());
+        
+        //clicking the check box 
+        WebElement optioncheckbox = driver.findElement(By.id("checkBoxOption1"));
+        optioncheckbox.click();
+        System.out.println("The CheckBoxOption1 is now : "+ optioncheckbox.isSelected());
+        
+        // again un checking the check box
+        optioncheckbox.click();
+        System.out.println("The CheckBoxOption1 is now : "+ optioncheckbox.isSelected());
+        
+        
+        // counting the total number of checkboxes in the page
+        List <WebElement> totalcheckboxs = driver.findElements(By.cssSelector("input[type='checkbox']"));
+        System.out.println("The total number of Checkboxes in the page is "+totalcheckboxs.size());
+        
+        
+        driver.close();
+	}
+
+}

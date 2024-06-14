@@ -1,0 +1,44 @@
+driver.get("https://qaclickacademy.com/practice.php"); 
+	    Thread.sleep(2000);
+	    driver.manage().window().maximize();
+	    
+	    // Limiting WebDriver scope
+	    WebElement checkboxoption = driver.findElement(By.id("checkbox-example"));
+	   List<WebElement> checkboxitems = checkboxoption.findElements(By.tagName("label"));
+	    int countOfCheckbox = checkboxitems.size();
+	    
+	    System.out.println(countOfCheckbox);
+	    // Switching back to defaultcontent
+	    driver.switchTo().defaultContent();
+
+	    //1. Select any checkbox
+	    WebElement actualOption = checkboxitems.get(2);  
+	    
+        //2. Storing the value in a variable
+	    String optionText = actualOption.getText();
+	    actualOption.findElement(By.tagName("input")).click();
+	    System.out.println("optionText found: "+optionText);
+	    
+	    //3. select the dropdown option as per the selected checkbox value
+	    WebElement dropdownexample = driver.findElement(By.id("dropdown-class-example"));
+	    Select dropdropdownitem = new Select(dropdownexample);
+	    dropdropdownitem.selectByVisibleText(optionText);
+	    
+	    //4. Enter the selected checkbox value in Editbox
+	    driver.findElement(By.id("name")).sendKeys(optionText);
+	    //Thread.sleep(2000);
+	    //5. Click the Alert button and validate the message whether it has the same selected checkbox value
+	    driver.findElement(By.id("alertbtn")).click();
+	    String alertmessage = driver.switchTo().alert().getText();
+	    
+	    Boolean messagePresent = alertmessage.contains(optionText);
+	    
+	    if(messagePresent)
+	    {
+	    	System.out.println("The Alert message contains the checkbox value _ "+optionText);
+	    	driver.switchTo().alert().accept();
+	    }
+	    
+	    Thread.sleep(2000);
+	    //closing the browser
+	    driver.quit();
